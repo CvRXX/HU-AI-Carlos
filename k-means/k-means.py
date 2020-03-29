@@ -65,21 +65,13 @@ def kmeans(dataset,k):
 
 
 def calculateDistance(centroids,dataset):	
+	centroidSum=0
 	for idx, centroid in enumerate(centroids):
-		centroidSum=0
-		centroidItems=0
 		for item in dataset:
 			if idx == item.centroid:
-				centroidItems+=1
 				centroidSum+=item.measureDistance(centroids[idx])
-		if centroidItems:
-			centroids[idx].centroidDistance = (centroidSum/centroidItems)
-		else:
-			print("this happens")
-	totalSum = 0		
-	for centroid in centroids:
-		totalSum += centroid.centroidDistance
-	return totalSum/len(centroids)
+
+	return centroidSum
 
 def findCentroidLabels(centroids,dataset):
 	for idx, centroid in enumerate(centroids):
@@ -102,12 +94,12 @@ def findCentroidLabels(centroids,dataset):
 def findBestK(dataset, maxK, runs):
 	kScores = []
 	for k in range(2,maxK+1):
-		sum = 0
+		sum = []
 		for run in range(1,runs+1):
 			print("Finding best K: " + str(k) + "/" + str(maxK) + " run: " + str(run) + "/" + str(runs) + "              ", end="\r")
 			centroids, dataset = kmeans(dataset,k)
-			sum += calculateDistance(centroids,dataset)
-		kScores.append(sum/runs)
+			sum.append(calculateDistance(centroids,dataset))
+		kScores.append(max(sum))
 	pyplot.scatter(range(2,maxK+1),kScores,label='Scatter Plot 1',color='r')
 	pyplot.show()
 	return kScores	
@@ -130,9 +122,9 @@ def validateLabels(dataset, k):
 
 
 
-findBestK(measurements, 10, 50)
-# From the graph I can tell the best K is: 5!
-validateLabels(measurements,5)
+findBestK(measurements, 10, 500)
+# From the graph I can tell the best K is: 3!
+validateLabels(measurements,3)
 # I can validate around 50% of the labels correctly. 
 # This is not so bad if you compare this 
 # to k-neigbours which should be better at this!

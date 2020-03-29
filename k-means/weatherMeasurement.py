@@ -48,7 +48,7 @@ class WeatherMeasurement:
       self.label=None
 
    def measureDistance(self, measurment):
-      return distance.minkowski(
+      return numpy.linalg.norm(
          numpy.array((
          self.fg,
          self.tg,
@@ -57,7 +57,7 @@ class WeatherMeasurement:
          self.sq,
          self.dr,
          self.rh))
-         ,
+         -
          numpy.array((
          measurment.fg,
          measurment.tg,

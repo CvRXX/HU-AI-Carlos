@@ -45,6 +45,8 @@ for run in range(0,5):
 	neuralNetwork = network.Network()
 
 	print("Generating a network...")
+	# I've chosen for a network of 2 hidden layers with a n of nInputLayers. 
+	# This is mainly because I got good results on this.
 	neuralNetwork.generate(4,3,2)
 	print("The following network has been generated:")
 	print(neuralNetwork)

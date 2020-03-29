@@ -6,10 +6,6 @@ class Network(object):
 	"""docstring for Network"""
 	layers = []
 	biasses = []
-
-	def __init__(self):
-		# self.layers = layers
-		pass
 	
 	def propegateForward(self):
 		for layer in self.layers[1:]:
@@ -45,7 +41,7 @@ class Network(object):
 				self.propegateForward()
 
 				for idx, output in enumerate(self.layers[-1]):
-					singleOutputCosts.append(math.sqrt(abs(test[5+idx] - output.getValue())))
+					singleOutputCosts.append(abs(test[5+idx] - output.getValue())**2)
 
 				self.propegateBackward([test[5],test[6],test[7]])
 
